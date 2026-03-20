@@ -1,0 +1,4 @@
+ALTER TYPE asset_type ADD VALUE IF NOT EXISTS 'etf';
+ALTER TYPE asset_type ADD VALUE IF NOT EXISTS 'commodity';
+ALTER TYPE asset_type ADD VALUE IF NOT EXISTS 'index';
+ALTER TYPE asset_type ADD VALUE IF NOT EXISTS 'bonds';

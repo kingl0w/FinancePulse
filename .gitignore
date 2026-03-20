@@ -1,0 +1,49 @@
+# Environment
+.env
+.env.local
+.env.production
+.env.*.local
+frontend/.env.local
+backend/.env
+
+# Rust
+target/
+backend/target/
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output
+.next/
+frontend/.next/
+
+# Database
+*.db
+pgdata/
+
+# SQLx offline data — DO NOT ignore, needed for Docker builds with SQLX_OFFLINE=true
+# .sqlx/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.Zone.Identifier
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+# AI config
+CLAUDE.md
+.impeccable.md

@@ -1,0 +1,40 @@
+services:
+  db:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/migrations:/app/migrations
+      - ./backend/Cargo.toml:/app/Cargo.toml
+      - ./backend/Cargo.lock:/app/Cargo.lock
+      - backend_target:/app/target
+      - backend_cargo_registry:/usr/local/cargo/registry
+    command: cargo watch -x run
+
+  frontend:
+    build:
+      context: ./frontend
+      target: deps
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/next.config.ts:/app/next.config.ts
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+    command: npx next dev
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+      NEXT_PUBLIC_WS_URL: ws://localhost:8080/ws
+
+volumes:
+  backend_target:
+  backend_cargo_registry:
