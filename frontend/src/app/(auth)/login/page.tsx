@@ -62,7 +62,6 @@ function LoginPageContent() {
   return (
     <div className="flex flex-col items-center px-4 pt-16 sm:pt-24 pb-8">
       <div className="w-full max-w-md">
-        {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
           <Link href="/" className="flex items-center gap-2">
             <Activity className="h-6 w-6 text-primary" />

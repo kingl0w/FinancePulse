@@ -615,7 +615,6 @@ export default function PortfolioDetailPage() {
         </CardContent>
       </Card>
 
-      {/* Edit Holding Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={(open) => {
         setEditDialogOpen(open);
         if (!open) setEditingHolding(null);
@@ -660,7 +659,6 @@ export default function PortfolioDetailPage() {
 
             <Separator />
 
-            {/* Log a Buy helper */}
             <div className="space-y-2">
               <p className="text-[13px] font-medium text-muted-foreground">Log a Buy</p>
               <div className="grid grid-cols-2 gap-3">
@@ -703,7 +701,6 @@ export default function PortfolioDetailPage() {
               </Button>
             </div>
 
-            {/* Log a Sell helper */}
             <div className="space-y-2">
               <p className="text-[13px] font-medium text-muted-foreground">Log a Sell</p>
               <div className="flex gap-3">

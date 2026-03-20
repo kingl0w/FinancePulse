@@ -164,7 +164,6 @@ async fn fetch_and_cache(
             let slug = event.slug.filter(|s| !s.is_empty())?;
             let title = event.title.filter(|t| !t.is_empty())?;
 
-            // Use the first market's prices; fall back to 50/50
             let (yes_price, no_price, condition_id, market_end_date) =
                 if let Some(primary) = event.markets.first() {
                     let (y, n) = primary
@@ -179,7 +178,6 @@ async fn fetch_and_cache(
                     (0.5, 0.5, String::new(), None)
                 };
 
-            // Use the primary market's question if available, otherwise event title
             let question = event
                 .markets
                 .first()

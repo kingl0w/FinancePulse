@@ -31,7 +31,6 @@ const sentimentConfig = {
   },
 } as const;
 
-/** Simple hash to pick a gradient placeholder color */
 function sourceGradient(source: string): string {
   const colors = [
     "from-[#f0b429]/20 to-[#f0b429]/5",

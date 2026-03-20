@@ -181,7 +181,6 @@ export function ComparisonChart({
       chartRef.current = null;
       seriesMapRef.current.clear();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, symbols.join(","), primarySymbol, height]);
 
   if (!hasData) {

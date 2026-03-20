@@ -78,7 +78,6 @@ export default function PredictionsPage() {
         </p>
       </div>
 
-      {/* Category filter tabs */}
       <div className="flex items-center gap-0.5">
         {CATEGORIES.map((cat) => (
           <button
@@ -96,7 +95,6 @@ export default function PredictionsPage() {
         ))}
       </div>
 
-      {/* Sort */}
       <div className="flex items-center gap-2">
         <span className="text-[12px] text-muted-foreground uppercase tracking-wider">Sort</span>
         <div className="flex items-center gap-0.5">
@@ -121,7 +119,6 @@ export default function PredictionsPage() {
         </div>
       </div>
 
-      {/* Grid */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -155,7 +152,6 @@ function PredictionCard({ market }: { market: PredictionMarket }) {
       className="flex bg-card border border-border rounded-lg p-4 hover:border-secondary transition-colors h-full"
     >
       <div className="flex gap-3">
-        {/* Market icon */}
         {market.image && (
           <img
             src={market.image}
@@ -165,12 +161,10 @@ function PredictionCard({ market }: { market: PredictionMarket }) {
         )}
 
         <div className="flex-1 min-w-0">
-          {/* Question */}
           <p className="text-[15px] font-semibold text-foreground leading-snug line-clamp-2">
             {market.question}
           </p>
 
-          {/* Probability bar */}
           <div className="mt-3">
             <div className="flex h-6 rounded-full overflow-hidden">
               <div
@@ -186,7 +180,6 @@ function PredictionCard({ market }: { market: PredictionMarket }) {
                 {noPct >= 15 && `No ${noPct}%`}
               </div>
             </div>
-            {/* Show labels below if bar segments too small */}
             {(yesPct < 15 || noPct < 15) && (
               <div className="flex justify-between mt-1 text-[11px] font-mono">
                 <span className="text-gain">Yes {yesPct}%</span>
@@ -195,7 +188,6 @@ function PredictionCard({ market }: { market: PredictionMarket }) {
             )}
           </div>
 
-          {/* Meta row */}
           <div className="flex items-center gap-3 mt-2 text-[11px] text-muted-foreground">
             <span>24h Vol: {formatVolume(market.volume_24h)}</span>
             <span>·</span>

@@ -18,7 +18,7 @@ pub fn create_access_token(user_id: Uuid, secret: &str) -> Result<String, AppErr
     let claims = Claims {
         sub: user_id.to_string(),
         iat: now,
-        exp: now + 15 * 60, // 15 minutes
+        exp: now + 15 * 60,
         token_type: "access".to_string(),
     };
 
@@ -35,7 +35,7 @@ pub fn create_refresh_token(user_id: Uuid, secret: &str) -> Result<String, AppEr
     let claims = Claims {
         sub: user_id.to_string(),
         iat: now,
-        exp: now + 7 * 24 * 60 * 60, // 7 days
+        exp: now + 7 * 24 * 60 * 60,
         token_type: "refresh".to_string(),
     };
 

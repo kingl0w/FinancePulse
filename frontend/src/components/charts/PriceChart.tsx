@@ -107,7 +107,6 @@ function safeSetData<T extends { time: UTCTimestamp }>(
   try {
     series.setData(dedup(data));
   } catch (err) {
-    // Chart data error — non-critical, swallow silently
   }
 }
 
@@ -444,7 +443,6 @@ export function PriceChart({
       priceLineRef.current = null;
       lastCandleRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candles, height, range, indicators, activeIndicators.join(",")]);
 
   useEffect(() => {
@@ -551,7 +549,6 @@ export function PriceChart({
       rsiChart.remove();
       rsiChartRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candles, showRsi, indicators?.rsi_14, showMacd]);
 
   useEffect(() => {
@@ -671,7 +668,6 @@ export function PriceChart({
       macdChart.remove();
       macdChartRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candles, showMacd, indicators?.macd]);
 
   const updateLivePrice = useCallback(
@@ -708,7 +704,7 @@ export function PriceChart({
               value: live.volume,
               color: price >= updated.open ? "#34d39940" : "#f8717140",
             });
-          } catch { /* volume update non-critical */ }
+          } catch {}
         } else {
           const prevClose = lastCandle.close;
           const newCandle: CandlestickData<UTCTimestamp> = {
@@ -726,7 +722,7 @@ export function PriceChart({
               value: live.volume,
               color: price >= prevClose ? "#34d39940" : "#f8717140",
             });
-          } catch { /* volume update non-critical */ }
+          } catch {}
         }
 
         if (priceLineRef.current) {
@@ -761,7 +757,6 @@ export function PriceChart({
         }
         prevPriceRef.current = price;
       } catch (err) {
-        // Live update skipped — non-critical
       }
     },
     [range]

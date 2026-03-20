@@ -5,10 +5,7 @@ use serde::Deserialize;
 
 use super::finnhub::DEFAULT_SYMBOLS;
 
-/// Yahoo Finance symbols for indices, commodity futures, and treasury yields.
-/// Each entry: (yahoo_symbol, display_name, clean_symbol, category)
 const YAHOO_EXTRA_SYMBOLS: &[(&str, &str, &str, &str)] = &[
-    // Major indices
     ("^GSPC", "S&P 500", "SP500", "index"),
     ("^DJI", "Dow Jones", "DOW", "index"),
     ("^IXIC", "Nasdaq Composite", "NASDAQ", "index"),
@@ -18,7 +15,6 @@ const YAHOO_EXTRA_SYMBOLS: &[(&str, &str, &str, &str)] = &[
     ("^N225", "Nikkei 225", "NIKKEI", "index"),
     ("^HSI", "Hang Seng", "HSI", "index"),
     ("^GDAXI", "DAX", "DAX", "index"),
-    // Commodity futures
     ("GC=F", "Gold", "GOLD", "commodity"),
     ("SI=F", "Silver", "SILVER", "commodity"),
     ("CL=F", "Crude Oil WTI", "CRUDE_OIL", "commodity"),
@@ -33,13 +29,11 @@ const YAHOO_EXTRA_SYMBOLS: &[(&str, &str, &str, &str)] = &[
     ("KC=F", "Coffee", "COFFEE", "commodity"),
     ("CT=F", "Cotton", "COTTON", "commodity"),
     ("SB=F", "Sugar", "SUGAR", "commodity"),
-    // Treasury yields
     ("^TNX", "10Y Treasury Yield", "US10Y", "bonds"),
     ("^TYX", "30Y Treasury Yield", "US30Y", "bonds"),
     ("^FVX", "5Y Treasury Yield", "US5Y", "bonds"),
 ];
 
-/// Map a clean symbol back to a Yahoo Finance symbol for history fetching.
 pub fn clean_to_yahoo_symbol(clean: &str) -> Option<&'static str> {
     YAHOO_EXTRA_SYMBOLS
         .iter()
@@ -47,7 +41,6 @@ pub fn clean_to_yahoo_symbol(clean: &str) -> Option<&'static str> {
         .map(|&(ys, _, _, _)| ys)
 }
 
-/// Check if a clean symbol is a Yahoo extra symbol.
 pub fn is_yahoo_extra(symbol: &str) -> bool {
     YAHOO_EXTRA_SYMBOLS.iter().any(|&(_, _, cs, _)| cs == symbol)
 }
@@ -182,8 +175,6 @@ pub async fn start(redis: fred::prelude::Client) {
     }
 }
 
-/// Polls Yahoo Finance for index values, commodity futures, and treasury yields.
-/// Runs every 2 minutes with concurrency limited to 3.
 pub async fn start_indices_commodities(redis: fred::prelude::Client) {
     let semaphore = std::sync::Arc::new(tokio::sync::Semaphore::new(3));
 

@@ -144,7 +144,7 @@ export function useWebSocket(
       }
       setIsConnected(false);
     };
-  }, [url, enabled, setPrice, send, priceStoreSubscribe]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [url, enabled, setPrice, send, priceStoreSubscribe]);
 
   return { isConnected, subscribe, unsubscribe };
 }

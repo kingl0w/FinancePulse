@@ -69,7 +69,6 @@ export function MarketSearch() {
     };
   }, [query]);
 
-  // Ctrl+K global shortcut
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -123,7 +122,7 @@ export function MarketSearch() {
         onFocus={() => results.length > 0 && setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         onKeyDown={handleKeyDown}
-        className="h-9 w-full rounded-lg border border-secondary bg-card pl-10 pr-3 text-[14px] text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20 focus:shadow-[0_0_10px_rgba(240,180,41,0.08)]"
+        className="w-full h-10 pl-10 pr-4 bg-[#0a0a0a] border border-[#f0b429]/40 rounded-lg text-sm text-[#e8e6e3] placeholder-[#6b6561] focus:outline-none focus:border-[#f0b429] focus:ring-2 focus:ring-[#f0b429]/20 transition-all"
       />
       {open && (
         <div className="absolute top-full left-0 right-0 mt-1 overflow-hidden rounded-lg border border-border bg-card shadow-2xl z-50">

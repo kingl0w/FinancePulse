@@ -254,7 +254,6 @@ const SYMBOLS: &[SymbolEntry] = &[
     SymbolEntry { symbol: "COMP", name: "Compound", asset_type: "crypto" },
     SymbolEntry { symbol: "SNX", name: "Synthetix", asset_type: "crypto" },
     SymbolEntry { symbol: "LDO", name: "Lido DAO", asset_type: "crypto" },
-    // Yahoo indices
     SymbolEntry { symbol: "SP500", name: "S&P 500", asset_type: "index" },
     SymbolEntry { symbol: "DOW", name: "Dow Jones", asset_type: "index" },
     SymbolEntry { symbol: "NASDAQ", name: "Nasdaq Composite", asset_type: "index" },
@@ -264,7 +263,6 @@ const SYMBOLS: &[SymbolEntry] = &[
     SymbolEntry { symbol: "NIKKEI", name: "Nikkei 225", asset_type: "index" },
     SymbolEntry { symbol: "HSI", name: "Hang Seng", asset_type: "index" },
     SymbolEntry { symbol: "DAX", name: "DAX", asset_type: "index" },
-    // Yahoo commodity futures
     SymbolEntry { symbol: "GOLD", name: "Gold", asset_type: "commodity" },
     SymbolEntry { symbol: "SILVER", name: "Silver", asset_type: "commodity" },
     SymbolEntry { symbol: "CRUDE_OIL", name: "Crude Oil WTI", asset_type: "commodity" },
@@ -279,7 +277,6 @@ const SYMBOLS: &[SymbolEntry] = &[
     SymbolEntry { symbol: "COFFEE", name: "Coffee", asset_type: "commodity" },
     SymbolEntry { symbol: "COTTON", name: "Cotton", asset_type: "commodity" },
     SymbolEntry { symbol: "SUGAR", name: "Sugar", asset_type: "commodity" },
-    // Yahoo treasury yields
     SymbolEntry { symbol: "US10Y", name: "10Y Treasury Yield", asset_type: "bonds" },
     SymbolEntry { symbol: "US30Y", name: "30Y Treasury Yield", asset_type: "bonds" },
     SymbolEntry { symbol: "US5Y", name: "5Y Treasury Yield", asset_type: "bonds" },
@@ -345,7 +342,6 @@ async fn get_quote(
         }
     }
 
-    // Check Yahoo index/commodity/bonds cache
     let mut yahoo_price: Option<f64> = None;
     let mut yahoo_volume: Option<f64> = None;
     let mut yahoo_change_pct: Option<f64> = None;
@@ -516,11 +512,9 @@ async fn fetch_candles(
         }
     }
 
-    // For Yahoo-sourced indices/commodities/bonds, fetch from Yahoo using the mapped symbol
     if let Some(yahoo_sym) = crate::ingestion::yahoo::clean_to_yahoo_symbol(symbol) {
         match fetch_yahoo_history(yahoo_sym, range).await {
             Ok(fetched) if !fetched.is_empty() => {
-                // Re-label candles with the clean symbol for consistency
                 let fetched: Vec<HistoricalCandle> = fetched
                     .into_iter()
                     .map(|mut c| { c.symbol = symbol.to_string(); c })
@@ -1142,7 +1136,6 @@ async fn search(
         results.extend(stock_results);
     }
 
-    // Also search indices, commodity futures, and bonds
     let extra_results: Vec<SearchResult> = SYMBOLS
         .iter()
         .filter(|s| {
@@ -1439,7 +1432,6 @@ const ALL_TRACKED: &[(&str, &str, &str)] = &[
     ("HYG", "iShares iBoxx High Yield Bond ETF", "bonds"),
     ("LQD", "iShares Investment Grade Bond ETF", "bonds"),
     ("TLT", "iShares 20+ Year Treasury Bond ETF", "bonds"),
-    // Yahoo indices
     ("SP500", "S&P 500", "index"),
     ("DOW", "Dow Jones", "index"),
     ("NASDAQ", "Nasdaq Composite", "index"),
@@ -1449,7 +1441,6 @@ const ALL_TRACKED: &[(&str, &str, &str)] = &[
     ("NIKKEI", "Nikkei 225", "index"),
     ("HSI", "Hang Seng", "index"),
     ("DAX", "DAX", "index"),
-    // Yahoo commodity futures
     ("GOLD", "Gold", "commodity"),
     ("SILVER", "Silver", "commodity"),
     ("CRUDE_OIL", "Crude Oil WTI", "commodity"),
@@ -1464,7 +1455,6 @@ const ALL_TRACKED: &[(&str, &str, &str)] = &[
     ("COFFEE", "Coffee", "commodity"),
     ("COTTON", "Cotton", "commodity"),
     ("SUGAR", "Sugar", "commodity"),
-    // Yahoo treasury yields
     ("US10Y", "10Y Treasury Yield", "bonds"),
     ("US30Y", "30Y Treasury Yield", "bonds"),
     ("US5Y", "5Y Treasury Yield", "bonds"),
@@ -1516,7 +1506,6 @@ async fn fetch_asset_data(
         }
     }
 
-    // Check Yahoo index/commodity/bonds cache
     let yahoo_key = format!("yahoo:index:{symbol}");
     if let Ok(Some(json_str)) = redis.get::<Option<String>, _>(&yahoo_key).await {
         if let Ok(parsed) = serde_json::from_str::<serde_json::Value>(&json_str) {
@@ -1737,7 +1726,6 @@ fn stock_market_cap(symbol: &str) -> Option<f64> {
         "HYG" => Some(15_000_000_000.0),
         "LQD" => Some(30_000_000_000.0),
         "TLT" => Some(50_000_000_000.0),
-        // Yahoo indices (visual weight, not real market cap)
         "SP500" => Some(40_000_000_000_000.0),
         "DOW" => Some(15_000_000_000_000.0),
         "NASDAQ" => Some(25_000_000_000_000.0),
@@ -1746,7 +1734,6 @@ fn stock_market_cap(symbol: &str) -> Option<f64> {
         "NIKKEI" => Some(4_000_000_000_000.0),
         "HSI" => Some(2_000_000_000_000.0),
         "DAX" => Some(2_000_000_000_000.0),
-        // Yahoo commodity futures
         "GOLD" => Some(13_000_000_000_000.0),
         "SILVER" => Some(1_500_000_000_000.0),
         "CRUDE_OIL" => Some(3_000_000_000_000.0),
@@ -1761,7 +1748,6 @@ fn stock_market_cap(symbol: &str) -> Option<f64> {
         "COFFEE" => Some(100_000_000_000.0),
         "COTTON" => Some(100_000_000_000.0),
         "SUGAR" => Some(100_000_000_000.0),
-        // Yahoo treasury yields
         "US10Y" => Some(500_000_000_000.0),
         "US30Y" => Some(300_000_000_000.0),
         "US5Y" => Some(200_000_000_000.0),
@@ -1799,7 +1785,6 @@ pub async fn get_heatmap(
     let mut entries = Vec::new();
 
     for &(symbol, name, asset_type) in ALL_TRACKED {
-        // Skip VIX from heatmap — it's a volatility index, not a market cap thing
         if symbol == "VIX" {
             continue;
         }

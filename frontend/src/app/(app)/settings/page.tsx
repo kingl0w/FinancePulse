@@ -113,7 +113,6 @@ export default function SettingsPage() {
         </button>
       </div>
 
-      {/* Delete Account Confirmation */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>

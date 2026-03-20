@@ -202,7 +202,6 @@ async fn delete_account(
     State(state): State<AppState>,
     auth: AuthUser,
 ) -> Result<Json<serde_json::Value>, AppError> {
-    // CASCADE on portfolios→holdings, plus direct deletes on alerts and watchlists
     sqlx::query("DELETE FROM users WHERE id = $1")
         .bind(auth.user_id)
         .execute(&state.db)
