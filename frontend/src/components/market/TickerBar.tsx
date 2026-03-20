@@ -94,7 +94,7 @@ export function TickerBar() {
   ));
 
   return (
-    <div className="h-8 sm:mb-3 bg-background border-t border-border overflow-hidden hidden sm:block">
+    <div className="h-8 border-b border-[#1c1c1c] bg-black overflow-hidden flex items-center">
       <div
         className="ticker-animate flex items-center gap-8 whitespace-nowrap h-full"
         style={{ width: "max-content" }}
