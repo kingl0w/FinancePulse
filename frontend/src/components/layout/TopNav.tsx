@@ -52,7 +52,7 @@ export function TopNav() {
 
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <Activity className="h-5 w-5 text-primary" />
-            <span className="font-heading font-bold text-[#e8e6e3] text-sm">FinancePulse</span>
+            <span className="font-heading font-bold text-[#e8e6e3] text-base">FinancePulse</span>
           </Link>
         </div>
 
@@ -82,7 +82,7 @@ export function TopNav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-xs font-medium transition-colors ${
+                  className={`text-sm font-medium transition-colors ${
                     isActive
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -169,7 +169,7 @@ export function TopNav() {
           ) : (
             <Link
               href="/login"
-              className="text-[13px] font-medium border border-primary text-primary rounded-full px-4 py-1 hover:bg-primary hover:text-primary-foreground transition-colors"
+              className="text-sm font-medium border border-primary text-primary rounded-full px-4 py-1 hover:bg-primary hover:text-primary-foreground transition-colors"
             >
               Sign In
             </Link>
