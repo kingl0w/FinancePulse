@@ -27,21 +27,21 @@ FinancePulse is a full-featured financial market dashboard that streams real-tim
                     ┌─────────────────────────────────────┐
                     │        Next.js 16 Frontend          │
                     │  TradingView · D3 · shadcn/ui       │
-                    │  Zustand · TanStack Query            │
+                    │  Zustand · TanStack Query           │
                     └──────┬──────────────────┬───────────┘
                            │ REST             │ WebSocket
                            ▼                  ▼
                     ┌─────────────────────────────────────┐
-                    │       Rust Backend (Axum)            │
-                    │  JWT Auth · REST API · WS Broadcast  │
-                    │  Technical Indicators Engine          │
+                    │       Rust Backend (Axum)           │
+                    │  JWT Auth · REST API · WS Broadcast │
+                    │  Technical Indicators Engine        │
                     ├──────────┬──────────┬───────────────┤
-                    │PostgreSQL│  Redis   │  Ingestion     │
-                    │  (SQLx)  │ Pub/Sub  │  Coinbase WS   │
-                    │          │  Cache   │  Finnhub WS    │
-                    │          │          │  CoinGecko     │
-                    │          │          │  Yahoo Finance │
-                    │          │          │  Polymarket    │
+                    │PostgreSQL│  Redis   │  Ingestion    │
+                    │  (SQLx)  │ Pub/Sub  │  Coinbase WS  │
+                    │          │  Cache   │  Finnhub WS   │
+                    │          │          │  CoinGecko    │
+                    │          │          │  Yahoo Finance│
+                    │          │          │  Polymarket   │
                     └──────────┴──────────┴───────────────┘
 ```
 
@@ -136,20 +136,6 @@ ALLOWED_ORIGINS=https://yourdomain.com
 ```
 
 The nginx proxy routes `/api/*` and `/ws` to the backend, everything else to the frontend.
-
-## Screenshots
-
-| Market Dashboard | Market Heatmap |
-|:---:|:---:|
-| ![Dashboard](docs/screenshot-main.png) | ![Heatmap](docs/screenshot-heatmap.png) |
-
-| Chart with Indicators | Multi-Chart Grid |
-|:---:|:---:|
-| ![Chart](docs/screenshot-chart.png) | ![Grid](docs/screenshot-charts.png) |
-
-| Predictions | Portfolio |
-|:---:|:---:|
-| ![Predictions](docs/screenshot-predictions.png) | ![Portfolio](docs/screenshot-portfolio.png) |
 
 ## API
 
