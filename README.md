@@ -2,7 +2,6 @@
 
 Real-time market intelligence platform built with Rust and Next.js.
 
-![FinancePulse Screenshot](docs/screenshot-main.png)
 
 ## Overview
 
